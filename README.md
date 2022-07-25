@@ -1,2 +1,2 @@
 # CrowdStrikeWorkshopGo
-Cloud Workshop - gaoling
+Cloud Workshop - golang

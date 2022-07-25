@@ -6,7 +6,6 @@ import (
 	"math"
 	"reflect"
 	"time"
-
 	//pkg "example.com/demo/examplepkg"
 )
 
@@ -187,4 +186,145 @@ func swwwt() {
 	default:
 		fmt.Println("Too far away.")
 	}
+}
+
+// defer -- urmareste pe dos call stack-ul
+func f2() {
+	defer fmt.Println("abc")
+	fmt.Println("def")
+}
+
+func f3() {
+	f2()
+}
+
+// Pointers and arrays
+
+func ppp() {
+	//var p *int
+
+	// Operator & for generating pointers
+	// Operator * for retrieving the value of a pointer
+	// Zero value nil
+	// NO pointer arithmertic
+	// if p != nil {
+	//	i := p
+	// }
+	// we get an explicit error for bad deferences: panic
+	// demo!!!
+	/*var pp *int
+	var ppp int
+	pp & ppp
+
+	fmt.Println(pp, *pp)*/
+}
+
+/// Arrays & slices
+func arrr() {
+	//var ar [10] int
+	// array length is part of the type (cannot be resized)
+	// accesing elements: i := a[2]
+	// dynamically sized views: slices
+
+	//var b []int
+	// slices are formed by specifying limits: a[low : high]
+	// we can omit one or both of these limits
+	// slices are like references to arrays -> changes to a slice modify the array
+	// length and capacity len(s), cap(s)
+	// zero value nil
+	// demo
+
+	a := [3]int{1, 2, 3}
+	fmt.Println(a)
+
+	aa := [5]int{1, 2, 3, 4, 5}
+	fmt.Printf("%v\n", aa)
+
+	s := a[0:2]
+	// sau avem a[:3] , a[:], a[0:]
+	fmt.Println(s) // [low, high)
+	// slices - pointeri , nu copii
+	fmt.Println("%v %v\n", len(s), cap(s))
+
+	var s1 []string
+	fmt.Println("%v", s1) // nil
+
+	if s1 == nil {
+		println("nil")
+	}
+}
+
+// Constructing slices dynamically : make & append
+func dinslices() {
+	// a := make([]int, 5) --- len(a) = 5
+	// b := make([]int, 0, 5) --- len(b) = 0, cap(b) = 5
+	// we have a "constructor" built in function to declare slices
+	// no need to import anything
+	// the second slice here is filled with zero values for its type
+	// adding values to a slice is done with another built in function
+	// a = append(a, 1)
+	// b = append(b, 2, 3, 4)
+	// b = append(b, a...) // appends the whole list
+	var s2 = make([]string, 10)
+	for i := 0; i < 10; i++ {
+		s2 = append(s2, fmt.Sprintf("%d", i))
+
+	}
+
+	fmt.Println(s2)
+
+	var s3 = make([]string, 5)
+	for i := 0; i < len(s3); i++ {
+		s3[i] = fmt.Sprintf("%d ", i)
+
+	}
+
+	fmt.Println(s3, cap(s3)) // cap(s3) = 5 -- nr elemente, nu cata memorie ocupa (avem "0 1 2 3 4 ")
+
+	var s4 = make([]string, 5)
+	for i := 0; i < 15; i++ {
+		s4 = append(s4, fmt.Sprintf("%d", i))
+	}
+
+	fmt.Println(s3, cap(s3)) // cap(s3) = 20 -- face realocare dinamica automat
+
+}
+
+/// Iterating over arrays made easy range
+
+// the range keyword returns the index and a 'copy' of the value
+// we can omit either one of them
+// for i := range pow
+// for index, val := range pow
+
+func itt() {
+	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+	for i, v := range pow {
+		fmt.Println("@**%s = %d\n", i, v)
+	}
+
+	for index, value := range pow {
+		fmt.Println(index, value)
+	}
+
+	str := "abcdef"
+	for _, v := range str {
+		// uint32, uint8, se face el frumos cumva
+		fmt.Println(int(v), reflect.TypeOf(v))
+	}
+
+	// sau casting to byte and after we iterate
+	for _, v := range []byte(str) {
+		// uint32, uint8, se face el frumos cumva
+		fmt.Println(int(v), reflect.TypeOf(v))
+	}
+
+	// defining types
+	type abc int32
+	// si putem crea tipuri si crea operatii
+	var v1 abc
+	fmt.Println(reflect.TypeOf(v1))
+	/*for _, v := range v1 {
+		str1 += v.(abc)
+	}*/
 }
