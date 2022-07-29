@@ -4,8 +4,6 @@ import (
 	"github.com/emicklei/go-restful/v3"
 	"http-rest/v/daos"
 	"http-rest/v/domain"
-	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -25,10 +23,6 @@ func (api *API) RegisterRoutes(ws *restful.WebService) {
 	ws.Path("/my-app")
 	ws.Route(ws.GET(bookPath).To(api.echoGETHandler).Reads(restful.MIME_JSON).Writes(restful.MIME_JSON))
 	ws.Route(ws.GET(bookPath + "/{name}").To(api.echoGETHandlerBookName).Reads(restful.MIME_JSON).Writes(restful.MIME_JSON))
-	ws.Route(ws.PUT(bookPath).To(api.echoPUTHandler).Reads(restful.MIME_JSON).Writes(restful.MIME_JSON))
-	ws.Route(ws.POST(bookPath).To(api.echoPOSTHandler).Reads(restful.MIME_JSON).Writes(restful.MIME_JSON))
-	ws.Route(ws.PATCH(bookPath).To(api.echoPATCHHandler).Reads(restful.MIME_JSON).Writes(restful.MIME_JSON))
-	ws.Route(ws.DELETE(bookPath).To(api.echoDELETEHandler).Reads(restful.MIME_JSON).Writes(restful.MIME_JSON))
 }
 
 func (api *API) echoGETHandler(req *restful.Request, resp *restful.Response) {
@@ -51,6 +45,7 @@ func (api *API) echoGETHandlerBookName(req *restful.Request, resp *restful.Respo
 	}
 }
 
+/*
 func (api *API) echoPUTHandlerBookName(req *restful.Request, resp *restful.Response) {
 	body := req.Request.Body
 	if body == nil {
@@ -74,11 +69,13 @@ func (api *API) echoPUTHandlerBookName(req *restful.Request, resp *restful.Respo
 		return
 	}
 
-	/*daos.AddBook(data)
+	daos.
+
+	daos.AddBook(data)
 
 	if err != nil {
 		resp.WriteAsJson(answer)
 	} else {
 		resp.WriteServiceError(http.StatusInternalServerError, restful.NewError(http.StatusInternalServerError, err.Error()))
-	}*/
-}
+	}
+}*/
